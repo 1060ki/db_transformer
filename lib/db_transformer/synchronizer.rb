@@ -12,7 +12,7 @@ module DbTransformer
       tables.each do |table_name|
         logger.info("Start copying `#{table_name}`")
 
-        if @settings['destination']['options']['force_replace']
+        if @settings.dig('destination', 'options', 'force_replace')
           destination_database_client.run("DROP TABLE #{table_name}")
         end
 

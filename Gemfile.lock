@@ -2,11 +2,21 @@ PATH
   remote: .
   specs:
     db_transformer (0.1.0)
+      faker
+      mysql2 (~> 0.5.0)
+      sequel (~> 5.56)
+      thor (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    concurrent-ruby (1.1.9)
     diff-lcs (1.5.0)
+    faker (2.17.0)
+      i18n (>= 1.6, < 2)
+    i18n (1.8.11)
+      concurrent-ruby (~> 1.0)
+    mysql2 (0.5.4)
     rake (13.0.6)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
@@ -21,6 +31,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.11.0)
     rspec-support (3.11.0)
+    sequel (5.56.0)
+    thor (1.2.1)
 
 PLATFORMS
   x86_64-darwin-19

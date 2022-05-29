@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require 'db_transformer'
+
+DbTransformer::CLI.start

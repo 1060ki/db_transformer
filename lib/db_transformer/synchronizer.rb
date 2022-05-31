@@ -1,6 +1,6 @@
 module DbTransformer
   class Synchronizer
-    LIMIT = 1000
+    LIMIT = 500
 
     def initialize(settings)
       @settings = settings
@@ -29,7 +29,7 @@ module DbTransformer
           data = source_database_client[table_name].limit(LIMIT, offset)
 
           table = destination_database_client[table_name]
-          data.each { |row| table.insert(Transform.execute!(table_name, row, rules)) }
+          table.multi_insert(data.map { |row| Transform.execute!(table_name, row, rules) })
 
           break if data.none?
 

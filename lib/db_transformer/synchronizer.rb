@@ -57,11 +57,19 @@ module DbTransformer
     end
 
     def tables
-      source_database_client.tables
+      source_database_client.tables - skip_tables
     end
 
     def source_database_client
       @source_database_client ||= Sequel.mysql2(@settings['source'])
+    end
+
+    def skip_tables
+      @skip_tables ||= @settings.dig('source', 'options', 'skip_tables').map(&:to_sym) || []
+    end
+
+    def source_database_settings
+      @source_database_settings ||= @settings['source'].reject { |k, _| k == 'options' }
     end
 
     def destination_database_client

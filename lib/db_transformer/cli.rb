@@ -6,7 +6,7 @@ module DbTransformer
 
     option :config
     def apply
-      config = YAML.load(File.read(options[:config]))
+      config = DbTransformer::Setting.load(options[:config])
 
       Synchronizer.new(config).execute!
     end

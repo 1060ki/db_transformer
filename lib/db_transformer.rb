@@ -3,6 +3,7 @@
 require 'erb'
 require 'sequel'
 require 'logger'
+require 'parallel'
 require 'yaml'
 
 require_relative 'db_transformer/version'

@@ -10,8 +10,6 @@ module DbTransformer
       destination_database_client.run('SET foreign_key_checks = 0;')
 
       tables.each do |table_name|
-        logger.info("Start copying `#{table_name}`")
-
         if @settings.dig('destination', 'options', 'force_replace')
           destination_database_client.run("DROP TABLE IF EXISTS #{table_name}")
         end
@@ -19,6 +17,12 @@ module DbTransformer
         create_table_query = source_database_client.fetch('SHOW CREATE TABLE ?', table_name).first[:'Create Table']
         create_table_query = create_table_query.gsub('CREATE TABLE', 'CREATE TABLE IF NOT EXISTS')
         destination_database_client.run(create_table_query)
+      end
+
+      Parallel.each(tables, in_threads: [source_database_max_connection, destination_database_max_connection].min) do |table_name|
+        destination_database_client.run('SET foreign_key_checks = 0;')
+
+        logger.info("Start copying `#{table_name}`")
 
         offset = 0
         loop do
@@ -70,6 +74,14 @@ module DbTransformer
 
     def destination_database_settings
       @destination_database_settings ||= @settings['destination'].reject { |k, _| k == 'options' }
+    end
+
+    def source_database_max_connection
+      @settings['source']['max_connections'] || 4
+    end
+
+    def destination_database_max_connection
+      @settings['destination']['max_connections'] || 4
     end
 
     def rules

@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'mysql2', "~> 0.5.0"
   spec.add_dependency 'sequel', '~> 5.56'
   spec.add_dependency 'thor', '~> 1.2'
+  spec.add_dependency 'parallel', '~> 1.22'
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

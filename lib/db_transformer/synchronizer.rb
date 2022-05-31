@@ -13,7 +13,7 @@ module DbTransformer
         logger.info("Start copying `#{table_name}`")
 
         if @settings.dig('destination', 'options', 'force_replace')
-          destination_database_client.run("DROP TABLE #{table_name}")
+          destination_database_client.run("DROP TABLE IF EXISTS #{table_name}")
         end
 
         create_table_query = source_database_client.fetch('SHOW CREATE TABLE ?', table_name).first[:'Create Table']

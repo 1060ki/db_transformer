@@ -65,7 +65,7 @@ module DbTransformer
     end
 
     def skip_tables
-      @skip_tables ||= @settings.dig('source', 'options', 'skip_tables').map(&:to_sym) || []
+      @skip_tables ||= (@settings.dig('source', 'options', 'skip_tables') || []).map(&:to_sym)
     end
 
     def source_database_settings

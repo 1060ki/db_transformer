@@ -61,7 +61,7 @@ module DbTransformer
     end
 
     def source_database_client
-      @source_database_client ||= Sequel.mysql2(@settings['source'])
+      @source_database_client ||= Sequel.trilogy(@settings['source'])
     end
 
     def skip_tables
@@ -73,11 +73,11 @@ module DbTransformer
     end
 
     def destination_database_client
-      @destination_database_client ||= Sequel.mysql2(destination_database_settings)
+      @destination_database_client ||= Sequel.trilogy(destination_database_settings)
     end
 
     def destination_database_client_without_db
-      @destination_database_client_without_db ||= Sequel.mysql2(destination_database_settings.reject { |k, _| k == 'database' })
+      @destination_database_client_without_db ||= Sequel.trilogy(destination_database_settings.reject { |k, _| k == 'database' })
     end
 
     def destination_database_settings
